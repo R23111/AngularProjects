@@ -1,0 +1,74 @@
+<div class="bg-primary text-white">
+  <br />
+  <h1 class="text-center">To Do List</h1>
+  <p class="text-center">You have {{ Length }} uncompleted tasks</p>
+  <br />
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter task here"
+          [(ngModel)]="inputText"
+        />
+      </div>
+    </div>
+    <div class="text-center sm-margin">
+      <button class="btn btn-lg btn-danger" (click)="onAdd()">Add Item!</button>
+    </div>
+    <br />
+    <div class="text-center">
+      <button class="btn btn-sm btn-dark" (click)="changeShowState()">
+        {{ hideCompleted ? "Show Completed Items" : "Hide Completed Items" }}
+      </button>
+    </div>
+  </div>
+  <br />
+  <br />
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Description</td>
+            <td class="text-right">Finished?</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of taskList" [hidden]="item.taskDone">
+            <th>{{ item.text }}</th>
+            <th class="text-right">
+              <input type="checkbox" [(ngModel)]="item.taskDone" />
+            </th>
+          </tr>
+        </tbody>
+      </table>
+
+      <div [hidden]="hideCompleted">
+        <div class="bg-secondary text-white">
+          <h5 [hidden]="taskList.length - Length === 0" class="text-center">
+            Completed Items
+          </h5>
+          <h5 [hidden]="!(taskList.length - Length === 0)" class="text-center">
+            No task has been completed
+          </h5>
+        </div>
+
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let item of taskList" [hidden]="!item.taskDone">
+              <th>{{ item.text }}</th>
+              <th class="text-right">
+                <input type="checkbox" [(ngModel)]="item.taskDone" />
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
